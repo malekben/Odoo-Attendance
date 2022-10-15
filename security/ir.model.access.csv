@@ -2,4 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_attendance_record,attendance.record,model_attendance_record,base.group_user,1,1,1,1
 access_attendance_day,attendance.day,model_attendance_day,base.group_user,1,1,1,1
 access_attendance_month,attendance.month,model_attendance_month,base.group_user,1,1,1,1
-access_attendance_leave,attendance.leave,model_attendance_leave,base.group_user,1,1,1,1
+access_attendance_holiday,attendance.holiday,model_attendance_holiday,base.group_user,1,1,1,1

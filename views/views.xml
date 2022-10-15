@@ -1,60 +1,246 @@
-<odoo>
-  <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="x_paie_9_13_22.list">
-      <field name="name">x_paie_9_13_22 list</field>
-      <field name="model">x_paie_9_13_22.x_paie_9_13_22</field>
+  <odoo>
+  <!-- Attendance month -->
+    <data>
+      <!-- tree view -->
+      <record id="attendance_month_view_tree" model="ir.ui.view">
+        <field name="name">attendance.month.view.tree</field>
+        <field name="model">attendance.month</field>
+        <field name="arch" type="xml">
+          <tree string="Attendance">
+            <field name="employee_id"/>
+            <field name="month"/>
+            <field name="year"/>
+          </tree>
+        </field>
+      </record>
+      <!-- Form view -->
+      <record id="attendance_month_view_form" model="ir.ui.view">
+        <field name="name">attendance.month.view.tree</field>
+        <field name="model">attendance.month</field>
+        <field name="arch" type="xml">
+          <form string="Attendance">
+            <!-- Buttons -->
+            <header>
+              <button name="action_scan_to_fix" type="object" string="Scan error"/>
+              <button name="action_complete_records" type="object" string="Complete records"/>
+            </header>
+            <sheet>
+            <!-- General information -->
+              <group>
+                  <field name="employee_id"/>
+                  <field name="month"/>
+                  <field name="year"/>
+              </group>
+              <group>
+                <group>
+                  <field name="rest_day"/>
+                  <field name="rest_day_name"/>
+                  <field name="total_days"/>
+                  <field name="rest_days"/>
+                  <field name="work_days"/>
+                  <field name="presence"/>
+                </group>
+              </group>
+              <notebook>
+                <!-- attendance section -->
+                <page string="Presence">
+                  <field name="days_ids"/>
+                </page>
+                <!-- Salary related information -->
+                <page string="Details">
+                  <group>
+                    <group>
+                      <field name="dur_basic" type="measure" widget="float_time"/>
+                      <field name="dur_extra" type="measure" widget="float_time" />
+                    </group>
+                  </group>
+                </page>
+                <!-- payments -->
+              </notebook>
+            </sheet>
+          </form>
+        </field>
+      </record>
+      <!-- Server action -->
+      <record id="attendance_month_action" model="ir.actions.act_window">
+        <field name="name">attendance.month.action</field>
+        <field name="res_model">attendance.month</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+      
+    </data>
+
+  <!-- Attendance day -->
+    <data>
+      <!-- tree view -->
+      <record id="attendance_day_view_tree" model="ir.ui.view">
+        <field name="name">attendance.day.view.tree"</field>
+        <field name="model">attendance.day</field>
+        <field name="arch" type="xml">
+          <tree string="Presence">
+            <field name="name"/>
+            <field name="date"/>
+            <field name="type"/>
+            <field name="line_count"/>
+            <field name="check_in"/>
+            <field name="check_out"/>
+            <field name="dur_work" type="measure" widget="float_time"/>
+            <field name="dur_break" type="measure" widget="float_time"/>
+            <field name="to_fix"/>
+          </tree>
+        </field>
+      </record>
+      <!-- Form view -->
+      <record id="attendance_day_view_form" model="ir.ui.view">
+        <field name="name">attendance.day.view.form</field>
+        <field name="model">attendance.day</field>
+        <field name="arch" type="xml">
+          <form string="Presence">
+            <sheet>
+              <group>
+              <field name="name"/>
+              <field name="date"/>
+              <field name="to_fix"/>
+              <field name="type"/>
+              </group>
+              <group>
+                <group>
+                  <group>
+                    <field name="dur_total" type="measure" widget="float_time"/>
+                    <field name="dur_break" type="measure" widget="float_time"/>
+                    <field name="dur_work" type="measure" widget="float_time"/>
+                  </group>
+                  <group>
+                    <field name="no_break"/>
+                  </group>
+                </group>
+              </group>
+              <notebook>
+                <page string="lines">
+                  <field name="lines"/>
+                </page>
+              </notebook>
+            </sheet>
+          </form>
+        </field>
+      </record>
+      <!-- server action -->
+      <record id="attendance_day_action" model="ir.actions.act_window">
+        <field name="name">attendance.day.action</field>
+        <field name="res_model">attendance.day</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+      
+    </data>
+
+  <!-- Attendance record -->
+    <data>
+      <!-- List view -->
+      <record id="attendance_record_view_tree" model="ir.ui.view">
+        <field name="name">attendance.record.view.tree</field>
+        <field name="model">attendance.record</field>
+        <field name="arch" type="xml">
+          <tree string="Record">
+            <field name="name"/>
+            <field name="time"/>
+          </tree>
+        </field>
+      </record>
+      <!-- Form view -->
+      <record id="attendance_record_view_form" model="ir.ui.view">
+        <field name="name">attendance.record.view.form</field>
+        <field name="model">attendance.record</field>
+        <field name="arch" type="xml">
+          <form string="Record">
+            <sheet>
+              <group>
+                <field name="name"/>
+                <field name="time"/>
+              </group>
+            </sheet>
+          </form>
+        </field>
+      </record>
+      <!-- server action -->
+      <record id="attendance_record_action" model="ir.actions.act_window">
+        <field name="name">attendance.record.action</field>
+        <field name="res_model">attendance.record</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+      
+    </data>
+
+  
+  <!-- Attendance Holiday -->
+    <!-- Action record -->
+    <record id="action_attendance_holiday" model="ir.actions.act_window">
+      <field name="name">Holidays</field>
+      <field name="res_model">attendance.holiday</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- View tree -->
+    <record id="attendance_holiday_view_tree" model="ir.ui.view">
+      <field name="name">attendance.holiday.view.tree</field>
+      <field name="model">attendance.holiday</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="date"/>
         </tree>
       </field>
     </record>
--->
-
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="x_paie_9_13_22.action_window">
-      <field name="name">x_paie_9_13_22 window</field>
-      <field name="res_model">x_paie_9_13_22.x_paie_9_13_22</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="x_paie_9_13_22.action_server">
-      <field name="name">x_paie_9_13_22 server</field>
-      <field name="model_id" ref="model_x_paie_9_13_22_x_paie_9_13_22"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
+    <!-- View form -->
+    <record id="attendance_holiday_view_form" model="ir.ui.view">
+      <field name="name">attendance.holiday.view.form</field>
+      <field name="model">attendance.holiday</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="date"/>
+            </group>
+          </sheet>
+        </form>
       </field>
     </record>
--->
-
-    <!-- Top menu item -->
-<!--
-    <menuitem name="x_paie_9_13_22" id="x_paie_9_13_22.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="x_paie_9_13_22.menu_1" parent="x_paie_9_13_22.menu_root"/>
-    <menuitem name="Menu 2" id="x_paie_9_13_22.menu_2" parent="x_paie_9_13_22.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="x_paie_9_13_22.menu_1_list" parent="x_paie_9_13_22.menu_1"
-              action="x_paie_9_13_22.action_window"/>
-    <menuitem name="Server to list" id="x_paie_9_13_22" parent="x_paie_9_13_22.menu_2"
-              action="x_paie_9_13_22.action_server"/>
--->
-  </data>
-</odoo>
+  <!-- HR employee inherit -->
+  <record id="hr_employee_view_attendance_inherit" model="ir.ui.view">
+    <field name="name">hr.employee.view.attendance.inherit</field>
+    <field name="model">hr.employee</field>
+    <field name="inherit_id" ref="hr.view_employee_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//page[@name='hr_settings']" position="after">
+        <page string="attendance settings" name="attendance_settings">
+          <group>
+            <group string="Attendance">
+              <field name="acs_code"/>
+              <field name="rest_day"/>
+              <field name="salary"/>
+            </group>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+  <!-- Menu -->
+    <data>
+      <menuitem id="attendance_menu" name="Attendance">
+        <menuitem id="attendance_menu_item" name="Attendance" action="attendance_month_action"/>
+        <menuitem id="attendance_menu_item1" name="Detail">
+          <menuitem id="attendance_menu_item3" name="Day" action="attendance_day_action"/>
+          <menuitem id="attendance_menu_item2" name="Record" action="attendance_record_action"/>
+          <menuitem id="attendance_menu_item4" name="Holidays" action="action_attendance_holiday"/>
+          
+        </menuitem>
+          
+      </menuitem>
+    </data>
+  </odoo>
+  <!-- Make a record view -->
+  <!-- Widget float_time for time fields -->
+  <!-- add all necessary the new fiels from the model doc to views -->
+  <!-- add the appropriate title for each menu -->
+  <!-- fix the interface of all of the models -->
+  <!-- Add salary and work days fils in hr.employee form -->
+  <!-- change the view of seconds in hour view -->
